@@ -98,6 +98,8 @@ df_parental_leave_clean |>
     arrange(desc(maternityleave_lenght)) |>
     head(5)
 
+
+
 # How many countries had paternity leave each year?
 
 paternity_yearly <- df_parental_leave_clean |>
