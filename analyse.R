@@ -65,6 +65,8 @@ df_parental_leave_clean |>
     "mean_maternityleave" = mean(maternityleave_lenght)
     )
 
+# Analysing decriptively -----------------------------------------------------------
+
 # How many countries have paternity and maternity leave in each year?
 
 df_parental_leave_clean |>
@@ -96,5 +98,18 @@ df_parental_leave_clean |>
     arrange(desc(maternityleave_lenght)) |>
     head(5)
 
+# How many countries had paternity leave each year?
 
+paternity_yearly <- df_parental_leave_clean |>
+    group_by(year) |>
+    summarise(
+        "countries_with_paternityleave" = sum(paternityleave_log == 1)
+    )
     
+# What was the average lenght of paternity leave in each year?
+
+paternity_yearly$leave_lenght <- df_parental_leave_clean |>
+    group_by(year) |>
+    summarise(
+        "mean_paternityleave" = mean(paternityleave_lenght)
+    )
