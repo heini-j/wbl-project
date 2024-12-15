@@ -68,9 +68,9 @@ save_plot("plots/n_countries_leave.png", n_countries_leave)
 
 # Average length of the parental leaves in different regions; modifiable by changing the years 
 
-ggplot_2010 <-
+ggplot_2000 <-
     df_wbl |>
-    filter(year == 2010) |>
+    filter(year == 2000) |>
     mutate(
         # Labeling only countries above mean in both maternity and paternity leave
         label = ifelse(
@@ -87,20 +87,20 @@ ggplot_2010 <-
     geom_point(color = "#FD814EFF", alpha=0.5)+
     facet_wrap(~region) +
     geom_label_repel(
-        size = 3,
+        size = 2,
         box.padding = 1,
-        max.overlaps = Inf
+        max.overlaps = Inf,
     ) +
     labs(
-        title = "Leave length in 2010",
+        title = "Leave length in 2000",
         x = "Length of maternity leave in days",
         y = "Length of paternity leave in days",
         caption = "© Heini Järviö"
     ) +
     theme_minimal(base_size = 12)
 
-ggplot_2010
+ggplot_2000
 
 # Saving the plot ----------------------------------------------------------------
     
-save_plot("plots/leave_length2010.png", ggplot_2010)
+save_plot("plots/leave_length2000.png", ggplot_2000)

@@ -31,8 +31,6 @@ df_wbl |>
     "N of countries with maternity leave" = sum(maternityleave_log == 1)
     )
 
-# 35 and 77 in year 2000, 22 and 61 in year 1985, 123 and 123 in year 2024
-
 # Income group differences ---------------------------------------------------------------
 
 # Are there differences between income groups in the average 
@@ -56,12 +54,12 @@ write_csv(summary_leave_length, "data/summary_leave_length.csv")
 
 # Average length of parental leaves by year --------------------------------------------
 
-summary_leave_length_yearly <- df_parental_leave_clean |>
+summary_leave_length_yearly <- df_wbl |>
     group_by(year) |>
     summarise(
-        "mean_maternityleave" = mean(maternityleave_length),
-        "mean_paternityleave" = mean(paternityleave_length),
-        "mean_parentalleave" = mean(shared_length)
+        "Average maternity leave length" = mean(maternityleave_length),
+        "Average paternity leave length" = mean(paternityleave_length),
+        "Average shared leave length" = mean(shared_length)
     )
 
 
@@ -73,7 +71,7 @@ write_csv(summary_leave_length_yearly, "data/summary_leave_length_yearly.csv")
 
 # which countries have the longest leaves in 2024? -------------------------------------
 
-maternity_2024 <- df_parental_leave_clean |>
+maternity_2024 <- df_wbl |>
     group_by(country) |>
     filter(year == 2024) |>
     arrange(desc(maternityleave_length))
@@ -81,7 +79,7 @@ maternity_2024 <- df_parental_leave_clean |>
 maternity_2024 |>
     head()
 
-paternity_2024 <- df_parental_leave_clean |>
+paternity_2024 <- df_wbl |>
     group_by(country) |>
     filter(year == 2024) |>
     arrange(desc(paternityleave_length))
@@ -89,7 +87,7 @@ paternity_2024 <- df_parental_leave_clean |>
 paternity_2024 |>    
     head(5)
 
-shared_2024 <- df_parental_leave_clean |>
+shared_2024 <- df_wbl |>
     group_by(country) |>
     filter(year == 2024) |>
     arrange(desc(shared_length))

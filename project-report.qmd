@@ -1,34 +1,75 @@
 ---
-title: "Project report"
+title: "Project report: Introduction to R for Data Science and Computational Social Science - Parental leaves globally"
 author: "Heini Järviö"
 format: pdf
 editor: visual
 ---
 
-This project uses a data from the 'Women, Business and Law' 2024 panel data provided by the World Bank. The dataset offers information on gender equality on several domains, but this project focuses on the data on parental leaves globally.
+This project uses a data from the 'Women, Business and Law' 2024 panel data provided by the World Bank. The dataset offers information on gender equality and equal opportunity on several domains. This project focuses on parenthood equality and parental leaves globally. The data is available at: https://wbl.worldbank.org/en/wbl
+
+The report shows main visualisations and tables created for descriptive analysis of the project. The whole code including the steps taken to create the visualisations and tables can be found in the github repository. The repository also includes the data used in the analysis and the full-size images.
 
 ```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
 library(kableExtra)
+library(knitr)
+library(readr)
 ```
 
 ```{r}
-# adding a saved GIF to the report
+#| echo: false
+# adding a plot from file
 
+include_graphics("plots/n_countries_leave.png")
+
+```
+```{r}
+#| echo: false
+
+include_graphics("plots/parental_leave_per_year.png")
+
+```
+The number of countries offering paid parental leaves has sharply increased since the 70s. Currently, approximately as many countries are offering paid maternity and paternity leave, while the length of paternity leaves is clearly lagging behind. Countries offering shared leaves has increased from zero to around 50. The length of these leaves is also increasing, suggesting that countries are opting out to offer fathers an optional leave based on a decision made between the parents. Table 1 shows the development of the average length of different leave types per year.
+
+```{r}
+#| echo: false
+#| tbl-cap: Average length of different leave types per year
+
+leave_length <- read.csv("data/summary_leave_length_yearly.csv")
+
+kable(leave_length, format = "latex", digits = 0, longtable = TRUE) |>
+    kable_styling(latex_options="hold_position")
 
 ```
 
 ```{r}
+#| echo: false
+#| tbl-cap: Average leave lengths in income groups
 
-#average lengths of different leaves 
-summary_leave_length_income <- df_parental_leave_clean |>
-    group_by(income_group) |>
-    filter(year == 2024) |>
-    summarise(
-        "mean_maternityleave" = mean(maternityleave_length),
-        "mean_paternityleave" = mean(paternityleave_length),
-        "mean_parentalleave" = mean(shared_length)
-    ) |>
-    arrange(desc(mean_maternityleave))
+length_income_group <- read.csv("data/summary_leave_length.csv")
 
-kable(summary_leave_length_income, digits = 0)
+kable(length_income_group, format = "latex", digits = 0)|>
+    kable_styling(latex_options="hold_position")
+
 ```
+
+Table 2 shows the average length of different leave types between countries in different income groups. The github repository offers also an animation that shows the development of maternity and paternity leaves throughout time. A simple comparison shows that higher income countries offer longer leaves than lower income countries and this difference is more pronounced in paternity leaves. 
+
+Finally, a comparison was made between the average length of maternity and paternity leaves in different regions in three comparison years represented in the following images. Countries that offer above average length leaves for both mothers and fathers are labeled.
+
+```{r}
+#| echo: false
+
+include_graphics("plots/leave_length2000.png")
+
+include_graphics("plots/leave_length2010.png")
+
+include_graphics("plots/leave_length2024.png")
+
+```
+
+The images show that as the average length of the different leaves grows, the top countries offering the longest leaves also varies with time. Please refer to the full-size images for a more detailed view of the countries offering above-average length leaves. 
