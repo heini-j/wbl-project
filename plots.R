@@ -1,6 +1,8 @@
 library(ggplot2)
 library(paletteer)
 library(cowplot)
+library(ggrepel)
+library(dplyr)
 
 
 # Loading the cleaned data ---------------------------------------------------------
@@ -35,5 +37,43 @@ leave_per_year <- df_wbl |>
 
 save_plot("plots/parental_leave_per_year.png", leave_per_year)
 
+# Using ggrepel to find countries with the longest parental leaves
 
+# Average length of the parental leaves in different regions; modifiable by changing the years 
 
+ggplot_2010 <-
+    df_wbl |>
+    filter(year == 2010) |>
+    mutate(
+        # Labeling only countries above mean in both maternity and paternity leave
+        label = ifelse(
+            paternityleave_length > mean(paternityleave_length) & 
+            maternityleave_length > mean(maternityleave_length), 
+            as.character(country),
+            ""
+            ), 
+            .by = region) |>
+    ggplot( 
+        mapping = aes(x = maternityleave_length, y = paternityleave_length, label = 
+                          label)
+    ) +
+    geom_point(color = "#FD814EFF", alpha=0.5)+
+    facet_wrap(~region) +
+    geom_label_repel(
+        size = 3,
+        box.padding = 1,
+        max.overlaps = Inf
+    ) +
+    labs(
+        title = "Leave length in 2010",
+        x = "Length of maternity leave in days",
+        y = "Length of paternity leave in days",
+        caption = "© Heini Järviö"
+    ) +
+    theme_minimal(base_size = 12)
+
+ggplot_2010
+
+# Saving the plot ----------------------------------------------------------------
+    
+save_plot("plots/leave_length2010.png", ggplot_2010)
