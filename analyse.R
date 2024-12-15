@@ -53,7 +53,31 @@ df_parental_leave_clean <-
         dismissal_prohibited_log = as.numeric(dismissal_prohibited_log)
     )
 
-max(df_parental_leave_clean$year)
+# Removing unnecessary columns -----------------------------------------------------
+
+df_wbl <- df_parental_leave_clean |>
+    select(
+        country,
+        region,
+        income_group,
+        year,
+        parenthood_score,
+        maternityleave_log,
+        maternityleave_length,
+        maternityleave_benefits_log,
+        paternityleave_log,
+        paternityleave_length,
+        parentalleave_log,
+        shared_length,
+        shared_length_mother,
+        shared_length_father,
+        dismissal_prohibited_log
+    )
+
+# Saving the cleaned data ----------------------------------------------------------
+
+saveRDS(df_wbl, "parental_leave_clean.rds")
+
 
 # Filtering data -------------------------------------------------------------------
 
