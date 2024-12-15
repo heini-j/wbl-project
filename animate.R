@@ -3,11 +3,12 @@ library(gifski)
 
 # Loading the cleaned data ---------------------------------------------------------
 
-df_wbl <- read_rds("parental_leave_clean.rds")
+df_wbl <- read_rds("parental_leave.rds")
+
+# Creating the animation -------------------------------------------------------------
 
 anim_plot <- ggplot(df_wbl, aes(maternityleave_length, paternityleave_length, colour = country)) +
     geom_point(size = 2, alpha = 0.7, show.legend = FALSE) +
-    # scale_colour_manual(values = country_colors) +
     scale_size(range = c(2, 60)) +
     facet_wrap(~region) +
     shadow_trail(max_frames = 5) +
@@ -17,12 +18,14 @@ anim_plot <- ggplot(df_wbl, aes(maternityleave_length, paternityleave_length, co
     xlim(0, 200) + 
     ylim(0, 100)
 
+# Animating the plot ----------------------------------------------------------------
+
 animate(anim_plot, device = 'png', renderer = gifski_renderer())
 
-anim_save("parental_leave2.gif", animation = last_animation(), path = NULL)
+# Saving the animation -------------------------------------------------------------
 
-?ease_aes
+anim_save("animation/parental_leave.gif", animation = last_animation(), path = NULL)
 
-?scale_color_manual
+
 
     

@@ -7,10 +7,10 @@ library(dplyr)
 
 # Loading the cleaned data ---------------------------------------------------------
 
-df_wbl <- read_rds("parental_leave_clean.rds") 
+df_wbl <- read_rds("parental_leave.rds") 
 
 
-# Average length of the parental leaves per year
+# Average length of the parental leaves per year -----------------------------------
 
 leave_per_year <- df_wbl |>
     group_by(year) |>
@@ -37,7 +37,7 @@ leave_per_year <- df_wbl |>
 
 save_plot("plots/parental_leave_per_year.png", leave_per_year)
 
-# Using ggrepel to find countries with the longest parental leaves
+# Countries with the longest parental leaves ---------------------------------------
 
 # Average length of the parental leaves in different regions; modifiable by changing the years 
 

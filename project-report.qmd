@@ -1,0 +1,34 @@
+---
+title: "Project report"
+author: "Heini Järviö"
+format: pdf
+editor: visual
+---
+
+This project uses a data from the 'Women, Business and Law' 2024 panel data provided by the World Bank. The dataset offers information on gender equality on several domains, but this project focuses on the data on parental leaves globally.
+
+```{r}
+library(kableExtra)
+```
+
+```{r}
+# adding a saved GIF to the report
+
+
+```
+
+```{r}
+
+#average lengths of different leaves 
+summary_leave_length_income <- df_parental_leave_clean |>
+    group_by(income_group) |>
+    filter(year == 2024) |>
+    summarise(
+        "mean_maternityleave" = mean(maternityleave_length),
+        "mean_paternityleave" = mean(paternityleave_length),
+        "mean_parentalleave" = mean(shared_length)
+    ) |>
+    arrange(desc(mean_maternityleave))
+
+kable(summary_leave_length_income, digits = 0)
+```
