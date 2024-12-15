@@ -37,6 +37,33 @@ leave_per_year <- df_wbl |>
 
 save_plot("plots/parental_leave_per_year.png", leave_per_year)
 
+# Number of countries with parental leave per year ----------------------------------
+
+n_countries_leave <- df_wbl |>
+    group_by(year) |>
+    summarise(
+        "sum_paternityleave" = sum(paternityleave_log == 1),
+        "sum_maternityleave" = sum(maternityleave_log == 1),
+        "sum_parentalleave" = sum(parentalleave_log == 1)
+    ) |>
+    ggplot(aes(x = year)) +
+    geom_line(aes(y = sum_maternityleave, color = "Maternity leave"), size = 1) +
+    geom_line(aes(y = sum_paternityleave, color = "Paternity leave"), size = 1) +
+    geom_line(aes(y = sum_parentalleave, color = "Shared parental leave"), size = 1) +
+    labs(
+        title = "Number of countries with parental leave per year",
+        x = NULL,
+        y = "Countries",
+        colour = NULL,
+        caption = "© Heini Järviö"
+    ) +
+    scale_color_paletteer_d("lisa::AndyWarhol") +
+    theme_classic()
+
+# Saving the plot ----------------------------------------------------------------
+
+save_plot("plots/n_countries_leave.png", n_countries_leave)
+
 # Countries with the longest parental leaves ---------------------------------------
 
 # Average length of the parental leaves in different regions; modifiable by changing the years 
