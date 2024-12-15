@@ -7,7 +7,7 @@ library(dplyr)
 
 # Loading the cleaned data ---------------------------------------------------------
 
-df_wbl <- read_rds("parental_leave.rds") 
+df_wbl <- read_rds("data/parental_leave.rds") 
 
 
 # Average length of the parental leaves per year -----------------------------------

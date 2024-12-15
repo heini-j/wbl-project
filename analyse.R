@@ -3,7 +3,7 @@ library(tidyverse)
 
 # Reading the data to R -----------------------------------------------------------
 
-df_wbl <- read_rds("parental_leave.rds") 
+df_wbl <- read_rds("data/parental_leave.rds") 
 
 
 # Descriptive analysis -------------------------------------------------------------------

@@ -3,7 +3,7 @@ library(gifski)
 
 # Loading the cleaned data ---------------------------------------------------------
 
-df_wbl <- read_rds("parental_leave.rds")
+df_wbl <- read_rds("data/parental_leave.rds")
 
 # Creating the animation -------------------------------------------------------------
 
